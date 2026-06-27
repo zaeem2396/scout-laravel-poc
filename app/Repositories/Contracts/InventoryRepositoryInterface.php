@@ -11,4 +11,6 @@ interface InventoryRepositoryInterface
     public function hasAvailableStock(int $productId, int $quantity): bool;
 
     public function decrementStock(int $productId, int $quantity): void;
+
+    public function reserveStock(int $productId, int $quantity): void;
 }

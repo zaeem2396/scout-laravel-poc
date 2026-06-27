@@ -37,4 +37,11 @@ class InventoryRepository implements InventoryRepositoryInterface
 
         $inventory->decrement('quantity', $quantity);
     }
+
+    public function reserveStock(int $productId, int $quantity): void
+    {
+        Inventory::query()
+            ->where('product_id', $productId)
+            ->increment('reserved_quantity', $quantity);
+    }
 }

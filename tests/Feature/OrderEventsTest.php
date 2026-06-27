@@ -60,6 +60,25 @@ class OrderEventsTest extends TestCase
         Notification::assertSentTo($user, OrderInvoiceNotification::class);
     }
 
+    public function test_order_placed_increments_reserved_inventory(): void
+    {
+        $user = User::factory()->create();
+        $product = $this->createProduct();
+        $inventory = Inventory::query()->where('product_id', $product->id)->first();
+
+        $this->actingAs($user)
+            ->post(route('cart.store', $product), ['quantity' => 2]);
+
+        $this->post(route('checkout.store'), [
+            'payment_method' => PaymentMethod::Card->value,
+        ]);
+
+        $inventory->refresh();
+
+        $this->assertSame(98, $inventory->quantity);
+        $this->assertSame(7, $inventory->reserved_quantity);
+    }
+
     public function test_order_placed_notifies_warehouse(): void
     {
         Notification::fake();
