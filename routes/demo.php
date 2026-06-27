@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\DemoController;
+use App\Http\Controllers\DemoDashboardController;
+use App\Http\Middleware\CollectObservabilityMetrics;
 use App\Http\Middleware\FeatureFlagMiddleware;
 use App\Http\Middleware\RequestLogger;
 use App\Http\Middleware\TenantResolver;
@@ -8,6 +10,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::prefix('demo')
     ->middleware([
+        CollectObservabilityMetrics::class,
         TenantResolver::class,
         RequestLogger::class,
         FeatureFlagMiddleware::class,
@@ -15,6 +18,7 @@ Route::prefix('demo')
     ->name('demo.')
     ->group(function () {
         Route::get('/', [DemoController::class, 'index'])->name('index');
+        Route::get('/dashboard', DemoDashboardController::class)->name('dashboard');
         Route::get('/request', [DemoController::class, 'request'])->name('request');
         Route::get('/n-plus-one', [DemoController::class, 'nPlusOne'])->name('n-plus-one');
         Route::get('/slow-query', [DemoController::class, 'slowQuery'])->name('slow-query');

@@ -19,6 +19,7 @@
                         <div class="d-flex justify-content-center gap-2 flex-wrap">
                             <a href="{{ route('products.index') }}" class="btn btn-primary">Browse products</a>
                             <a href="{{ route('demo.index') }}" class="btn btn-outline-primary">Observability demos</a>
+                            <a href="{{ route('demo.dashboard') }}" class="btn btn-outline-primary">Dashboard</a>
                             <a href="{{ route('login') }}" class="btn btn-outline-secondary">Log in</a>
                             @if (Route::has('register'))
                                 <a href="{{ route('register') }}" class="btn btn-outline-secondary">Register</a>

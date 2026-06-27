@@ -44,6 +44,7 @@ class DemoController extends Controller
                 'jobs' => route('demo.jobs'),
                 'memory' => route('demo.memory'),
                 'exception' => route('demo.exception'),
+                'dashboard' => route('demo.dashboard'),
                 'full_flow' => route('demo.full-flow'),
             ],
         ]);
