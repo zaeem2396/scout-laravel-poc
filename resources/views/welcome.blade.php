@@ -17,7 +17,8 @@
 
                     @if (Route::has('login'))
                         <div class="d-flex justify-content-center gap-2">
-                            <a href="{{ route('login') }}" class="btn btn-primary">Log in</a>
+                            <a href="{{ route('products.index') }}" class="btn btn-primary">Browse products</a>
+                            <a href="{{ route('login') }}" class="btn btn-outline-secondary">Log in</a>
                             @if (Route::has('register'))
                                 <a href="{{ route('register') }}" class="btn btn-outline-secondary">Register</a>
                             @endif
