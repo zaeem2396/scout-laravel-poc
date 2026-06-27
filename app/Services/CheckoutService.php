@@ -6,6 +6,9 @@ use App\Enums\CouponType;
 use App\Enums\OrderStatus;
 use App\Enums\PaymentMethod;
 use App\Enums\PaymentStatus;
+use App\Events\OrderPaid;
+use App\Events\OrderPlaced;
+use App\Events\OrderStatusUpdated;
 use App\Exceptions\CheckoutException;
 use App\Models\Coupon;
 use App\Models\Order;
@@ -65,6 +68,12 @@ class CheckoutService
 
             return $createdOrders;
         });
+
+        foreach ($orders as $order) {
+            OrderPlaced::dispatch($order);
+            OrderPaid::dispatch($order);
+            OrderStatusUpdated::dispatch($order);
+        }
 
         return $orders;
     }
