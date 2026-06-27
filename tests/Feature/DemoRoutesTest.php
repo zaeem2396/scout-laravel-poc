@@ -18,7 +18,7 @@ class DemoRoutesTest extends TestCase
         $response = $this->get(route('demo.index'));
 
         $response->assertOk()
-            ->assertJsonStructure(['demos' => ['request', 'n_plus_one', 'slow_query', 'cache', 'full_flow']]);
+            ->assertJsonStructure(['demos' => ['request', 'n_plus_one', 'slow_query', 'cache', 'dashboard', 'full_flow']]);
     }
 
     public function test_demo_request_runs_lifecycle(): void
