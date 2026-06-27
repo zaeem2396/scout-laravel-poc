@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use App\Models\User;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Hash;
 
 class DatabaseSeeder extends Seeder
 {
@@ -15,7 +16,7 @@ class DatabaseSeeder extends Seeder
             ['email' => 'admin@scout-poc.test'],
             [
                 'name' => 'Admin User',
-                'password' => 'password',
+                'password' => Hash::make('password'),
                 'email_verified_at' => now(),
             ],
         );
