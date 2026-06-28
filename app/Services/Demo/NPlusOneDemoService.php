@@ -9,9 +9,12 @@ class NPlusOneDemoService
     /**
      * Intentionally trigger N+1 queries across related models.
      *
+     * Default limit (100) is sized so local Docker MySQL usually exceeds Scout's
+     * ~150ms N+1 insight threshold. Use ?limit= on /demo/n-plus-one to tune.
+     *
      * @return array<int, array<string, mixed>>
      */
-    public function loadProductsWithRelations(int $limit = 15): array
+    public function loadProductsWithRelations(int $limit = 100): array
     {
         $products = Product::query()
             ->where('is_active', true)

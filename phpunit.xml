@@ -32,5 +32,8 @@
         <env name="PULSE_ENABLED" value="false"/>
         <env name="TELESCOPE_ENABLED" value="false"/>
         <env name="NIGHTWATCH_ENABLED" value="false"/>
+        <env name="OBESERVA_ENABLED" value="false"/>
+        <env name="OBESERVA_DRIVER" value="noop"/>
+        <env name="SCOUT_MONITORING_ENABLED" value="false"/>
     </php>
 </phpunit>

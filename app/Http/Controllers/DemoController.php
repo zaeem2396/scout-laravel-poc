@@ -59,10 +59,13 @@ class DemoController extends Controller
         ]);
     }
 
-    public function nPlusOne(): JsonResponse
+    public function nPlusOne(Request $request): JsonResponse
     {
+        $limit = min(max((int) $request->query('limit', 100), 1), 200);
+
         return response()->json([
-            'products' => $this->nPlusOne->loadProductsWithRelations(),
+            'limit' => $limit,
+            'products' => $this->nPlusOne->loadProductsWithRelations($limit),
         ]);
     }
 

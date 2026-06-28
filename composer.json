@@ -8,11 +8,20 @@
         "framework"
     ],
     "license": "MIT",
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "https://github.com/zaeem2396/laravel-obeserva.git",
+            "no-api": true
+        }
+    ],
     "require": {
         "php": "^8.3",
         "laravel/framework": "^13.8",
         "laravel/horizon": "^5.47",
-        "laravel/tinker": "^3.0"
+        "laravel/tinker": "^3.0",
+        "scout/laravel": "dev-main",
+        "scoutapp/scout-apm-php": "^8.12"
     },
     "require-dev": {
         "fakerphp/faker": "^1.23",
@@ -84,8 +93,10 @@
         "allow-plugins": {
             "pestphp/pest-plugin": true,
             "php-http/discovery": true
-        }
+        },
+        "github-protocols": ["https"],
+        "platform-check": false
     },
-    "minimum-stability": "stable",
+    "minimum-stability": "dev",
     "prefer-stable": true
 }

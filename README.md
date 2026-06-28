@@ -4,6 +4,45 @@
 
 Laravel 13 observability playground for demonstrating Scout APM instrumentation via Obeserva.
 
+### Obeserva
+
+This project installs [laravel-obeserva](https://github.com/zaeem2396/laravel-obeserva) as `scout/laravel` via a Composer VCS repository, with the Scout APM PHP agent.
+
+1. Set your Scout key in `.env` (`SCOUT_KEY` is wired to Obeserva via `config/obeserva.php`).
+
+2. Install dependencies and verify:
+
+```bash
+docker compose up -d --build
+docker compose exec php composer install
+docker compose exec php php artisan obeserva:status
+```
+
+The driver should report `scout` when `OBESERVA_DRIVER=scout` and `SCOUT_MONITORING_ENABLED=true`.
+
+When `OBESERVA_DRIVER=scout`, disable Obeserva's HTTP and SQL tracing so `scout-apm-php` owns those spans (required for Scout **N+1 Insights**):
+
+```env
+OBESERVA_HTTP_MIDDLEWARE=false
+OBESERVA_DB_QUERY_TRACING=false
+OBESERVA_FLUSH_ON_TERMINATE=false
+```
+
+Generate N+1 demo traffic (Scout needs repeated queries over ~150ms total SQL time):
+
+```bash
+chmod +x scripts/generate-n-plus-one-traffic.sh
+./scripts/generate-n-plus-one-traffic.sh http://localhost:8088 30 100
+```
+
+Then check **Web Endpoints** → `DemoController@nPlusOne` and the **N+1 Insights** tab (may take a few minutes).
+
+| Package | Location |
+|---------|----------|
+| Obeserva (`scout/laravel`) | `vendor/scout/laravel` (cloned from GitHub VCS) |
+| Scout agent | `vendor/scoutapp/scout-apm-php` |
+| Config | `config/obeserva.php` |
+
 ### Quick start
 
 ```bash
