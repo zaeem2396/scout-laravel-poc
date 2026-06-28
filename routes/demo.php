@@ -28,6 +28,8 @@ Route::prefix('demo')
         Route::get('/jobs', [DemoController::class, 'jobs'])->name('jobs');
         Route::get('/memory', [DemoController::class, 'memory'])->name('memory');
         Route::get('/exception', [DemoController::class, 'exception'])->name('exception');
+        Route::get('/sql-error', [DemoController::class, 'sqlError'])->name('sql-error');
+        Route::get('/human-error', [DemoController::class, 'humanError'])->name('human-error');
         Route::post('/full-flow', [DemoController::class, 'fullFlow'])
             ->middleware('auth')
             ->name('full-flow');

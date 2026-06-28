@@ -9,10 +9,12 @@ use App\Services\Demo\CacheDemoService;
 use App\Services\Demo\DemoOrderResolver;
 use App\Services\Demo\EventsDemoService;
 use App\Services\Demo\FullFlowDemoService;
+use App\Services\Demo\HumanErrorDemoService;
 use App\Services\Demo\JobsDemoService;
 use App\Services\Demo\NPlusOneDemoService;
 use App\Services\Demo\RequestLifecycleService;
 use App\Services\Demo\SlowQueryDemoService;
+use App\Services\Demo\SqlErrorDemoService;
 use App\Services\RecommendationService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -29,6 +31,8 @@ class DemoController extends Controller
         private readonly JobsDemoService $jobsDemo,
         private readonly FullFlowDemoService $fullFlow,
         private readonly DemoOrderResolver $orderResolver,
+        private readonly SqlErrorDemoService $sqlError,
+        private readonly HumanErrorDemoService $humanError,
     ) {}
 
     public function index(): JsonResponse
@@ -44,6 +48,8 @@ class DemoController extends Controller
                 'jobs' => route('demo.jobs'),
                 'memory' => route('demo.memory'),
                 'exception' => route('demo.exception'),
+                'sql_error' => route('demo.sql-error'),
+                'human_error' => route('demo.human-error'),
                 'dashboard' => route('demo.dashboard'),
                 'full_flow' => route('demo.full-flow'),
             ],
@@ -141,6 +147,18 @@ class DemoController extends Controller
     public function exception(): JsonResponse
     {
         throw new ObservabilityDemoException('Scout should capture this intentional demo exception.');
+    }
+
+    public function sqlError(): JsonResponse
+    {
+        $this->sqlError->execute();
+
+        return response()->json(['status' => 'unexpected']);
+    }
+
+    public function humanError(): never
+    {
+        $this->humanError->execute();
     }
 
     public function fullFlow(FullFlowDemoRequest $request): JsonResponse

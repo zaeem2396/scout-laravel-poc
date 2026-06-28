@@ -18,6 +18,10 @@
                     @if (Route::has('login'))
                         <div class="d-flex justify-content-center gap-2 flex-wrap">
                             <a href="{{ route('products.index') }}" class="btn btn-primary">Browse products</a>
+                            <a href="{{ route('demo.n-plus-one', ['limit' => 100]) }}" class="btn btn-warning">Trigger N+1 demo</a>
+                            <a href="{{ route('demo.exception') }}" class="btn btn-danger">Trigger error demo</a>
+                            <a href="{{ route('demo.sql-error') }}" class="btn btn-outline-danger">Trigger SQL error</a>
+                            <a href="{{ route('demo.human-error') }}" class="btn btn-outline-danger">Trigger human error</a>
                             <a href="{{ route('demo.index') }}" class="btn btn-outline-primary">Observability demos</a>
                             <a href="{{ route('demo.dashboard') }}" class="btn btn-outline-primary">Dashboard</a>
                             <a href="{{ route('login') }}" class="btn btn-outline-secondary">Log in</a>

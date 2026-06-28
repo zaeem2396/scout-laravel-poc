@@ -2,6 +2,7 @@
 
 namespace Tests\Feature;
 
+use App\Exceptions\HumanErrorDemoException;
 use App\Exceptions\ObservabilityDemoException;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -105,6 +106,24 @@ class DemoRoutesTest extends TestCase
         $this->expectException(ObservabilityDemoException::class);
 
         $this->get(route('demo.exception'));
+    }
+
+    public function test_demo_sql_error_raises_query_exception(): void
+    {
+        $this->withoutExceptionHandling();
+
+        $this->expectException(\Illuminate\Database\QueryException::class);
+
+        $this->get(route('demo.sql-error'));
+    }
+
+    public function test_demo_human_error_raises_human_error_exception(): void
+    {
+        $this->withoutExceptionHandling();
+
+        $this->expectException(HumanErrorDemoException::class);
+
+        $this->get(route('demo.human-error'));
     }
 
     public function test_demo_full_flow_requires_authentication(): void
